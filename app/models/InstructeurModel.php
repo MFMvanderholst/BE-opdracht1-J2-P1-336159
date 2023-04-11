@@ -1,6 +1,6 @@
 <?php
 
-class CountryModel
+class InstructeurModel
 {
     private $db;
 
@@ -9,7 +9,7 @@ class CountryModel
         $this->db = new Database();
     }
 
-    public function getCountries()
+    public function getInstructeurs_in_dienst()
     {
         $sql = 'SELECT  Id
                        ,Name
