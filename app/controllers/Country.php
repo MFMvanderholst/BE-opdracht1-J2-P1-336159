@@ -8,7 +8,7 @@ class Country extends BaseController
     {
         $this->countryModel = $this->model('CountryModel');
     }
-    
+
     public function index()
     {
         $data = [
@@ -18,17 +18,24 @@ class Country extends BaseController
         $this->view('country/index', $data);
     }
 
-    public function getCountries($id1 = NULL, $id2 = NULL) 
+
+    public function getCountries($id1=NULL, $id2=NULL) 
     {
-        echo 'We zijn binnen de method getCountries()';
-        echo 'De meegegeven parameters zijn:' . $id1 . ' en ' . $id2;
+        $countries = $this->countryModel->getCountries();
+
+        $tableRows = "";
+        foreach ($countries as $value) {
+            $tableRows .= "<tr>
+                                <td>$value->Id</td>
+                                <td>$value->Name</td>
+                           </tr>";
+        }
 
         $data = [
-            'title' => 'Overzicht landen van Europa', 
-            'eersteParameter' => $id1,
-            'tweedeParameter' => $id2
+            'title' => 'Overzicht landen van Europa',
+            'tableRows' => $tableRows
         ];
 
-        $this->view('Country/getCountries', $data);
+        $this->view('country/getCountries', $data);
     }
 }
