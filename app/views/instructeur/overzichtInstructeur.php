@@ -21,7 +21,9 @@
             <th>Voertuigen</th>
         </thead>
         <tbody>
-            
+            <tr>
+                <?= $data['rows']; ?>
+            </tr>
         </tbody>
     </table>
     
