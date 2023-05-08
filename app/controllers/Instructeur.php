@@ -39,14 +39,14 @@ class Instructeur extends BaseController
                     <td>$instructeur->Mobiel</td>
                     <td>$instructeur->DatumInDienst</td>
                     <td>$instructeur->AantalSterren</td>
-                    <td>auto-icon</td>
+                    <td><a href='http://www.mvc-2209a-framework-periode4.com/GebruikteVoertuig/overzichtvoertuigen.php'>auto-icon</a></td>
                     </tr>";
 
                     $data = [
                         'title' => 'Instructeur in dienst',
                         'rows' => $rows
                     ];
-                    var_dump($rows);
+                    // var_dump($rows);
 
                     $this->view('instructeur/overzichtinstructeur', $data);
                     
@@ -57,6 +57,6 @@ class Instructeur extends BaseController
     {
         $result = $this->instructeurModel->getGebruikteVoertuigen($Id);
 
-        var_dump($result);
+        // var_dump($result);
     }
 }
