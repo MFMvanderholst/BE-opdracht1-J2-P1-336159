@@ -20,15 +20,16 @@ class Instructeur extends BaseController
 
     
 
-    public function overzichtInstructeur($id1=NULL, $id2=NULL) 
+    public function overzichtInstructeur() 
     {
         
 
         $result = $this->instructeurModel->getInstructeur();
+        var_dump($result);
 
         $rows = "";
 
-        var_dump($result);
+        // var_dump($rows);
 
         foreach ($result as $instructeur) {
             $rows .= "<tr>
@@ -36,8 +37,8 @@ class Instructeur extends BaseController
                     <td>$instructeur->Tussenvoegsel</td>
                     <td>$instructeur->Achternaam</td>
                     <td>$instructeur->Mobiel</td>
-                    <td>$instructeur->Datum_in_Dienst</td>
-                    <td>$instructeur->Aantal_sterren</td>
+                    <td>$instructeur->DatumInDienst</td>
+                    <td>$instructeur->AantalSterren</td>
                     <td>auto-icon</td>
                     </tr>";
 
@@ -45,8 +46,10 @@ class Instructeur extends BaseController
                         'title' => 'Instructeur in dienst',
                         'rows' => $rows
                     ];
+                    var_dump($rows);
 
                     $this->view('instructeur/overzichtinstructeur', $data);
+                    
         }
     }
 

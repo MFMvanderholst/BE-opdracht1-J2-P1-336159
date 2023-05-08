@@ -30,7 +30,6 @@ class Database
 
     public function resultSet()
     {
-        var_dump(define('DB_NAME', 'voertuiginstructeur'));
         $this->statement->execute();
         return $this->statement->fetchAll(PDO::FETCH_OBJ);
     }

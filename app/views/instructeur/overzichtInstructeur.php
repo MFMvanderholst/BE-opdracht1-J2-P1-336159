@@ -21,9 +21,10 @@
             <th>Voertuigen</th>
         </thead>
         <tbody>
-            <tr>
-                <?= $data['rows']; ?>
-            </tr>
+        
+        <?= $data['rows']; ?>
+        <?= var_dump($data['rows']) ?>
+        
         </tbody>
     </table>
     

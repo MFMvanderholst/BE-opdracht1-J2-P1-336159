@@ -11,14 +11,8 @@ class instructeurModel
 
     public function getInstructeur()
     {
-        $sql = 'SELECT  Id
-                       ,Voornaam
-                       ,Tussenvoegsel
-                       ,Achternaam
-                       ,Mobiel
-                       ,DatumInDienst
-                       ,Aantal_Sterren
-                FROM    Country
+        $sql = 'SELECT  *
+                FROM    instructeur
                 ORDER BY AantalSterren DESC';
 
         $this->db->query($sql);
