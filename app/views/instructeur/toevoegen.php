@@ -24,10 +24,11 @@
             <th>Bouwjaar</th>
             <th>Brandstof</th>
             <th>Rijbewijscategorie</th>
+            <th>Toevoegen</th>
         </thead>
         <tbody>
         
-        <?= $data['tableRows']; ?>
+        <?= $data['voegtoe']; ?>
         
         </tbody>
     </table>

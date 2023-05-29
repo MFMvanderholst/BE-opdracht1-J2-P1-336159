@@ -29,14 +29,17 @@ class Instructeur extends BaseController
                         <td>$formatted_date</td>
                         <td>$instructeur->AantalSterren</td>
                         <td>
-                            <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$instructeur->id'>auto-icon</a>
+                            <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$instructeur->id'><img src='" . URLROOT . "img/autoicon.png'></a>
                         </td>
                       </tr>";                    
         }
 
+        $count = $instructeur->countInstructeur;
+
         $data = [
             'title' => 'Instructeur in dienst',
-            'rows' => $rows
+            'rows' => $rows,
+            'count' => $count
         ];
         // var_dump($rows);
         // var_dump($instructeur->id);
@@ -95,5 +98,56 @@ class Instructeur extends BaseController
 
         $this->view('instructeur/overzichtVoertuigen', $data);
         // var_dump($result);
+    }
+
+    public function toevoegen($id)
+    {
+        $instructeurInfo = $this->instructeurModel->getInstructeurById($id);
+
+        $date = date_create($instructeurInfo->DatumInDienst);
+        $formatted_date = date_format($date, 'd/m/Y');
+
+        // var_dump($instructeurInfo);
+        $naam = $instructeurInfo->Voornaam . " " . $instructeurInfo->Tussenvoegsel . " " . $instructeurInfo->Achternaam;
+        $datumInDienst = $formatted_date;
+        $aantalSterren = $instructeurInfo->Aantalsterren;
+
+        $result = $this->instructeurModel->getToegewezenVoertuigen($id);
+
+        $voegtoeRows = "";
+
+        if (empty($result)) {
+            $voegtoeRows = "<tr>
+                                <td colspan='6'>
+                                    Er zijn op dit moment nog geenvoertuigen toegewezen aan deze instructeur
+                                </td>
+                            </tr>";
+        } else {
+            
+
+            foreach ($result as $voertuig) {
+                $date_formatted = date_format(date_create($voertuig->Bouwjaar), 'd-m-y');
+
+                $voegtoeRows .= "<tr>
+                <td>$voertuig->TypeVoertuig</td>
+                <td>$voertuig->Type</td>
+                <td>$voertuig->Kenteken</td>
+                <td>$date_formatted</td>
+                <td>$voertuig->Brandstof</td>
+                <td>$voertuig->Rijbewijscategorie</td>
+                <td><a href=''>+</a></td>
+                </tr>";
+            }
+        }
+        
+        $data = [
+            'title' => 'Door instructeur gebruikte voertuig',
+            'voegtoe' => $voegtoeRows,
+            'naam'      => $naam,
+            'datumInDienst' => $datumInDienst,
+            'aantalSterren' => $aantalSterren
+        ];
+
+        $this->view('instructeur/toevoegen', $data);
     }
 }

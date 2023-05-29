@@ -8,7 +8,9 @@
     <title>Overzicht Instructeurs</title>
 </head>
 <body>
-    <?= $data['title']; ?>
+    <h3><?= $data['title']; ?></h3>
+
+    <p>Aantal: <?= $data['count'] ?></p>
 
     <table>
         <thead>

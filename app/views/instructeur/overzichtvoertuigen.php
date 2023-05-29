@@ -15,6 +15,7 @@
     <p>Datum in Dienst: <?= $data['datumInDienst']; ?></p>
     <p>Aanstal Sterren: <?= $data['aantalSterren']; ?></p>
     
+    <a href="http://www.mvc-2209a-framework-periode4.com/Instructeur/toevoegen"><button>Toevoegen</button></a>
 
     <br><table>
         <thead>

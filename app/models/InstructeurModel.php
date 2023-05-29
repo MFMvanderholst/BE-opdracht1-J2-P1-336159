@@ -20,6 +20,16 @@ class instructeurModel
         return $this->db->resultSet();        
     }
 
+    public function countInstructeur()
+    {
+        $sql = 'SELECT count(id)
+                FROM instructeur';
+        
+        $this->db->query($sql);
+
+        return $this->db->single();
+    }
+
     public function getToegewezenVoertuigen($id)
     {
         $sql ="SELECT tyvo.TypeVoertuig, voer.Type, voer.Kenteken, voer.Bouwjaar, voer.Brandstof, tyvo.Rijbewijscategorie 

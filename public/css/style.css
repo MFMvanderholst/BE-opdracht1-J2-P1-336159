@@ -9,3 +9,11 @@ th {
 td {
     border: 3px solid black;
 }
+
+img {
+    width: 4em;
+}
+
+a {
+    width: 4em;
+}
