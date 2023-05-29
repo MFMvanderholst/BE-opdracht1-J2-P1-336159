@@ -8,55 +8,92 @@ class Instructeur extends BaseController
     {
         $this->instructeurModel = $this->model('InstructeurModel');
     }
-    
-    public function index()
-    {
-        $data = [
-            'title' => 'Overzicht Instructeurs in dienst'
-        ];
-
-        $this->view('instructeur/overzichtInstructeur', $data);
-    }
-
-    
 
     public function overzichtInstructeur() 
     {
-        
-
         $result = $this->instructeurModel->getInstructeur();
-        var_dump($result);
-
-        $rows = "";
+        // var_dump($result);
 
         // var_dump($rows);
 
+        $rows = "";
         foreach ($result as $instructeur) {
+            $date = date_create($instructeur->DatumInDienst);
+            $formatted_date = date_format($date, 'd/m/Y');
+
             $rows .= "<tr>
-                    <td>$instructeur->Voornaam</td>
-                    <td>$instructeur->Tussenvoegsel</td>
-                    <td>$instructeur->Achternaam</td>
-                    <td>$instructeur->Mobiel</td>
-                    <td>$instructeur->DatumInDienst</td>
-                    <td>$instructeur->AantalSterren</td>
-                    <td><a href='http://www.mvc-2209a-framework-periode4.com/GebruikteVoertuig/overzichtvoertuigen.php'>auto-icon</a></td>
-                    </tr>";
-
-                    $data = [
-                        'title' => 'Instructeur in dienst',
-                        'rows' => $rows
-                    ];
-                    // var_dump($rows);
-
-                    $this->view('instructeur/overzichtinstructeur', $data);
-                    
+                        <td>$instructeur->Voornaam</td>
+                        <td>$instructeur->Tussenvoegsel</td>
+                        <td>$instructeur->Achternaam</td>
+                        <td>$instructeur->Mobiel</td>
+                        <td>$formatted_date</td>
+                        <td>$instructeur->AantalSterren</td>
+                        <td>
+                            <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$instructeur->id'>auto-icon</a>
+                        </td>
+                      </tr>";                    
         }
+
+        $data = [
+            'title' => 'Instructeur in dienst',
+            'rows' => $rows
+        ];
+        // var_dump($rows);
+        // var_dump($instructeur->id);
+
+        $this->view('instructeur/overzichtinstructeur', $data);
     }
 
-    public function overzichtVoertuigen($Id)
+    public function overzichtVoertuigen($id)
     {
-        $result = $this->instructeurModel->getGebruikteVoertuigen($Id);
+        $instructeurInfo = $this->instructeurModel->getInstructeurById($id);
 
+        $date = date_create($instructeurInfo->DatumInDienst);
+        $formatted_date = date_format($date, 'd/m/Y');
+
+        // var_dump($instructeurInfo);
+        $naam = $instructeurInfo->Voornaam . " " . $instructeurInfo->Tussenvoegsel . " " . $instructeurInfo->Achternaam;
+        $datumInDienst = $formatted_date;
+        $aantalSterren = $instructeurInfo->Aantalsterren;
+
+        $result = $this->instructeurModel->getToegewezenVoertuigen($id);
+
+        // var_dump($result);
+
+        $tableRows = "";
+
+        if (empty($result)) {
+            $tableRows = "<tr>
+                                <td colspan='6'>
+                                    Er zijn op dit moment nog geenvoertuigen toegewezen aan deze instructeur
+                                </td>
+                            </tr>";
+        } else {
+            
+
+            foreach ($result as $voertuig) {
+                $date_formatted = date_format(date_create($voertuig->Bouwjaar), 'd-m-y');
+
+                $tableRows .= "<tr>
+                <td>$voertuig->TypeVoertuig</td>
+                <td>$voertuig->Type</td>
+                <td>$voertuig->Kenteken</td>
+                <td>$date_formatted</td>
+                <td>$voertuig->Brandstof</td>
+                <td>$voertuig->Rijbewijscategorie</td>
+                </tr>";
+            }
+        }
+
+        $data = [
+            'title' => 'Door instructeur gebruikte voertuig',
+            'tableRows' => $tableRows,
+            'naam'      => $naam,
+            'datumInDienst' => $datumInDienst,
+            'aantalSterren' => $aantalSterren
+        ];
+
+        $this->view('instructeur/overzichtVoertuigen', $data);
         // var_dump($result);
     }
 }
