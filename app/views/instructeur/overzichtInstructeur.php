@@ -10,7 +10,7 @@
 <body>
     <h3><?= $data['title']; ?></h3>
 
-    <p>Aantal: <?= $data['count'] ?></p>
+    <p>Aantal: <?= $data['count']; ?></p>
 
     <table>
         <thead>

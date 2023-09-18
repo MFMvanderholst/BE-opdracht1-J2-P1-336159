@@ -40,5 +40,9 @@ class Database
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
 
+    public function bind(string $param, string $value)
+    {
+        $this->statement->bindValue($param, $value, PDO::PARAM_STR);
+    }
 
 }

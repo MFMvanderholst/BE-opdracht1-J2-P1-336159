@@ -60,4 +60,24 @@ class instructeurModel
         return $this->db->single();
     }
 
+    public function getWijzigen($id)
+    {
+        $sql ="UPDATE typevoertuig
+                SET TypeVoertuig = ''
+                WHERE id
+                
+                UPDATE voertuig
+                SET Type = '', Bouwjaar = '', Brandstof = '', Kenteken = ''
+                WHERE id";
+
+        $this->db->query($sql);
+        
+        $this->db->bind(':typevoertuig', $_POST['typevoertuig'], PDO::PARAM_STR);
+        $this->db->bind(':type', $_POST['type'], PDO::PARAM_STR);
+        $this->db->bind(':bouwjaar', $_POST['bouwjaar'], PDO::PARAM_STR);
+        $this->db->bind(':brandstof', $_POST['brandstof'], PDO::PARAM_STR);
+        $this->db->bind(':kenteken', $_POST['kenteken'], PDO::PARAM_STR);
+
+        return $this->db->single();
+    }
 }

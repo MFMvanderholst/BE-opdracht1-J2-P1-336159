@@ -34,13 +34,21 @@ class Instructeur extends BaseController
                       </tr>";                    
         }
 
-        $count = $instructeur->countInstructeur;
+        $resultCount = $this->instructeurModel->countInstructeur();
+
+        $count = "";
+        foreach ($resultCount as $instructeur) {
+            $count .= "$instructeur";
+        }
+        // var_dump($count);
+        
 
         $data = [
             'title' => 'Instructeur in dienst',
             'rows' => $rows,
             'count' => $count
         ];
+
         // var_dump($rows);
         // var_dump($instructeur->id);
 
@@ -84,6 +92,7 @@ class Instructeur extends BaseController
                 <td>$date_formatted</td>
                 <td>$voertuig->Brandstof</td>
                 <td>$voertuig->Rijbewijscategorie</td>
+                <td><a href='". URLROOT . "/instructeur/wijzigenovervoertuigen/'><img src='" . URLROOT . "img/wijzigenicon.png'></a></td>
                 </tr>";
             }
         }
@@ -93,7 +102,9 @@ class Instructeur extends BaseController
             'tableRows' => $tableRows,
             'naam'      => $naam,
             'datumInDienst' => $datumInDienst,
-            'aantalSterren' => $aantalSterren
+            'aantalSterren' => $aantalSterren,
+            'instructeurId' => $id,
+            'voertuigId' => $id
         ];
 
         $this->view('instructeur/overzichtVoertuigen', $data);
@@ -149,5 +160,12 @@ class Instructeur extends BaseController
         ];
 
         $this->view('instructeur/toevoegen', $data);
+    }
+
+    public function wijzigenovervoertuigen($id)
+    {
+        $wijzigen = $this->instructeurModel->getWijzigen($id);
+
+        
     }
 }
