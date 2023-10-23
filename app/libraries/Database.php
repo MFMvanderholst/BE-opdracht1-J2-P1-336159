@@ -42,7 +42,19 @@ class Database
 
     public function bind(string $param, string $value)
     {
+        $this->statement->execute();
         $this->statement->bindValue($param, $value, PDO::PARAM_STR);
+    }
+
+    public function destroy()
+    {
+        $this->statement->execute();
+        $this->statement->bindValue(':Id', $_GET['Id'], PDO::PARAM_INT);
+    }
+
+    public function execute() 
+    {
+        return $this->statement->execute();
     }
 
 }

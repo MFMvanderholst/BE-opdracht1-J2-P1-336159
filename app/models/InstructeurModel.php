@@ -30,13 +30,13 @@ class instructeurModel
         return $this->db->single();
     }
 
-    public function getToegewezenVoertuigen($id)
+    public function getToegewezenVoertuigen($instructeurId)
     {
-        $sql ="SELECT tyvo.TypeVoertuig, voer.Type, voer.Kenteken, voer.Bouwjaar, voer.Brandstof, tyvo.Rijbewijscategorie 
+        $sql ="SELECT tyvo.TypeVoertuig, voer.Type, voer.Kenteken, voer.Bouwjaar, voer.Brandstof, tyvo.Rijbewijscategorie, voer.id 
                FROM voertuiginstructeur vtin
                INNER JOIN voertuig voer ON vtin.VoertuigId = voer.id
                INNER JOIN TypeVoertuig tyvo ON voer.TypeVoertuigId = tyvo.id
-               WHERE InstructeurId = $id
+               WHERE InstructeurId = $instructeurId
                ORDER BY tyvo.Rijbewijscategorie DESC";
 
         $this->db->query($sql);
@@ -68,7 +68,7 @@ class instructeurModel
                 
                 UPDATE voertuig
                 SET Type = '', Bouwjaar = '', Brandstof = '', Kenteken = ''
-                WHERE id";
+                WHERE id = $id";
 
         $this->db->query($sql);
         
@@ -79,5 +79,16 @@ class instructeurModel
         $this->db->bind(':kenteken', $_POST['kenteken'], PDO::PARAM_STR);
 
         return $this->db->single();
+    }
+
+    public function delete($voertuigId)
+    {
+        $sql ="DELETE FROM voertuiginstructeur
+                    WHERE VoertuigId = $voertuigId ";
+        // echo $sql;exit();
+        $this->db->query($sql);
+        // $this->db->bind(':id', $id, PDO::PARAM_INT);
+
+        return $this->db->execute();
     }
 }

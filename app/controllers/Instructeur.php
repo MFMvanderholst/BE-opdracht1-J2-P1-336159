@@ -12,7 +12,7 @@ class Instructeur extends BaseController
     public function overzichtInstructeur() 
     {
         $result = $this->instructeurModel->getInstructeur();
-        // var_dump($result);
+         var_dump($result);
 
         // var_dump($rows);
 
@@ -84,7 +84,7 @@ class Instructeur extends BaseController
 
             foreach ($result as $voertuig) {
                 $date_formatted = date_format(date_create($voertuig->Bouwjaar), 'd-m-y');
-
+                var_dump($voertuig);
                 $tableRows .= "<tr>
                 <td>$voertuig->TypeVoertuig</td>
                 <td>$voertuig->Type</td>
@@ -93,6 +93,7 @@ class Instructeur extends BaseController
                 <td>$voertuig->Brandstof</td>
                 <td>$voertuig->Rijbewijscategorie</td>
                 <td><a href='". URLROOT . "/instructeur/wijzigenovervoertuigen/'><img src='" . URLROOT . "img/wijzigenicon.png'></a></td>
+                <td><a href='". URLROOT . "/instructeur/delete/" . $voertuig->id . "/" . $id . "'><img src='" . URLROOT . "img/delete.png'></a></td>
                 </tr>";
             }
         }
@@ -104,7 +105,8 @@ class Instructeur extends BaseController
             'datumInDienst' => $datumInDienst,
             'aantalSterren' => $aantalSterren,
             'instructeurId' => $id,
-            'voertuigId' => $id
+            'voertuigId' => $id,
+            'typevoertuig' => $id
         ];
 
         $this->view('instructeur/overzichtVoertuigen', $data);
@@ -162,10 +164,53 @@ class Instructeur extends BaseController
         $this->view('instructeur/toevoegen', $data);
     }
 
-    public function wijzigenovervoertuigen($id)
+    public function wijzigenoverzichtvoertuigen($id)
     {
         $wijzigen = $this->instructeurModel->getWijzigen($id);
 
-        
+        $naam = $wijzigen->Voornaam . " " . $wijzigen->Tussenvoegsel . " " . $wijzigen->Achternaam;
+
+        $result = $this->instructeurModel->getWijzigen($id);
+
+        $voegtoeRows = "";
+        if (empty($result)) {
+            $voegtoeRows = "<tr>
+                                <td colspan='6'>
+                                    Er zijn op dit moment nog geenvoertuigen toegewezen aan deze instructeur
+                                </td>
+                            </tr>";
+        } else {
+            
+
+            foreach ($result as $voertuig) {
+
+                $voegtoeRows .= "<tr>
+                <td>$voertuig->TypeVoertuig</td>
+                <td>$voertuig->Type</td>
+                <td>$voertuig->Kenteken</td>
+                <td>$voertuig->Brandstof</td>
+                <td>$voertuig->Rijbewijscategorie</td>
+                </tr>";
+            }
+        }
+        $data = [
+            'title' => 'Door instructeur gebruikte voertuig',
+            'voegtoe' => $voegtoeRows,
+            'naam'      => $naam
+        ];
+
+        $this->view('instructeur/wijzigenoverzichtvoertuigen', $data);
+    }
+
+    public function delete($id, $instructeurId)
+    {
+        $delete = $this->instructeurModel->delete($id);
+
+        if ($delete) {
+            echo "Het record is verwijderd";
+            header('Refresh:2.5; url=http://www.php-mvc-periode1.com/instructeur/overzichtVoertuigen/' . $instructeurId);
+        } else {
+            echo "Het record is niet verwijderd";
+        }
     }
 }

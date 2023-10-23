@@ -27,6 +27,11 @@ SET time_zone = "+00:00";
 -- Tabelstructuur voor tabel `instructeur`
 --
 
+DROP TABLE IF EXISTS `voertuiginstructeur`;
+DROP TABLE IF EXISTS `voertuig`;
+DROP TABLE IF EXISTS `typevoertuig`;
+
+
 DROP TABLE IF EXISTS `instructeur`;
 CREATE TABLE IF NOT EXISTS `instructeur` (
   `id` int NOT NULL,
@@ -56,7 +61,7 @@ INSERT INTO `instructeur` (`id`, `Voornaam`, `Tussenvoegsel`, `Achternaam`, `Mob
 -- Tabelstructuur voor tabel `typevoertuig`
 --
 
-DROP TABLE IF EXISTS `typevoertuig`;
+-- DROP TABLE IF EXISTS `typevoertuig`;
 CREATE TABLE IF NOT EXISTS `typevoertuig` (
   `id` int NOT NULL,
   `TypeVoertuig` varchar(14) DEFAULT NULL,
@@ -80,7 +85,7 @@ INSERT INTO `typevoertuig` (`id`, `TypeVoertuig`, `Rijbewijscategorie`) VALUES
 -- Tabelstructuur voor tabel `voertuig`
 --
 
-DROP TABLE IF EXISTS `voertuig`;
+-- DROP TABLE IF EXISTS `voertuig`;
 CREATE TABLE IF NOT EXISTS `voertuig` (
   `id` int NOT NULL,
   `Kenteken` varchar(8) DEFAULT NULL,
@@ -116,7 +121,7 @@ INSERT INTO `voertuig` (`id`, `Kenteken`, `Type`, `Bouwjaar`, `Brandstof`, `Type
 -- Tabelstructuur voor tabel `voertuiginstructeur`
 --
 
-DROP TABLE IF EXISTS `voertuiginstructeur`;
+-- DROP TABLE IF EXISTS `voertuiginstructeur`;
 CREATE TABLE IF NOT EXISTS `voertuiginstructeur` (
   `id` int NOT NULL,
   `VoertuigId` int DEFAULT NULL,
@@ -135,7 +140,7 @@ INSERT INTO `voertuiginstructeur` (`id`, `VoertuigId`, `InstructeurId`, `DatumTo
 (1, 1, 5, '2017-06-18'),
 (2, 3, 1, '2021-09-26'),
 (3, 9, 1, '2021-09-27'),
-(4, 3, 4, '2022-08-01'),
+(4, 4, 4, '2022-08-01'),
 (5, 5, 1, '2019-08-30'),
 (6, 10, 5, '2020-02-02');
 

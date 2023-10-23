@@ -5,19 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= URLROOT; ?>/css/style.css">
-    <title>Overzicht van Instructeur Gebruikte Voertuigen</title>
+    <title>Overzicht alle voertuigen</title>
 </head>
 <body>
     <h3><?= $data['title']; ?></h3>
 
-    
-    <p>Naam: <?= $data['naam']; ?></p>
-    <p>Datum in Dienst: <?= $data['datumInDienst']; ?></p>
-    <p>Aanstal Sterren: <?= $data['aantalSterren']; ?></p>
-    
-    <a href="http://www.php-mvc-periode1.com/Instructeur/toevoegen/<?php echo $data['instructeurId']; ?>"><button>Toevoegen</button></a>
+    <p>Aantal: <?= $data['count']; ?></p>
 
-    <br><table>
+    <table>
         <thead>
             <th>TypeVoertuig</th>
             <th>Type</th>
@@ -25,12 +20,11 @@
             <th>Bouwjaar</th>
             <th>Brandstof</th>
             <th>Rijbewijscategorie</th>
-            <th>Wijzigen</th>
-            <th>Verwijder</th>
+            <th>Instructeur naam</th>
         </thead>
         <tbody>
         
-        <?= $data['tableRows']; ?>
+        <?= $data['rows']; ?>
         
         </tbody>
     </table>
