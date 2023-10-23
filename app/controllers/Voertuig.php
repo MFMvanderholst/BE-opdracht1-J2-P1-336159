@@ -35,7 +35,7 @@
                                 <td>$voertuig->Rijbewijscategorie</td>
                                 <td>$voertuig->Voornaam $voertuig->Tussenvoegsel $voertuig->Achternaam</td>
                                 <td>
-                                    <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$voertuig->id'><img src='" . URLROOT . "img/delete.png'></a>
+                                    <a href='" . URLROOT . "/voertuig/overzichtvoertuigen/'><img src='" . URLROOT . "img/delete.png'></a>
                                 </td>
                               </tr>";                    
                 }
@@ -53,10 +53,23 @@
                 'title' => 'Alle voertuigen',
                 'rows' => $rows,
                 'count' => $count
+                
             ];
 
             $this->view('voertuig/overzichtvoertuigen', $data);
 
             // var_dump($result);
         }
+
+    public function delete($id)
+    {
+        $delete = $this->voertuigModel->delete($id);
+
+        if ($delete) {
+            echo "Het record is verwijderd";
+            header('Refresh:2.5; url=http://www.php-mvc-periode1.com//voertuig/overzichtvoertuigen');
+        } else {
+            echo "Het record is niet verwijderd";
+        }
+    }
     }

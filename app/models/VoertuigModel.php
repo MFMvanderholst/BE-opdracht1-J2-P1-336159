@@ -26,7 +26,7 @@
             $this->db->query($sql);
 
             $test = $this->db->resultSet();   
-            var_dump($test);
+            // var_dump($test);
             return $test;     
         }
 
@@ -38,5 +38,16 @@
             $this->db->query($sql);
 
             return $this->db->single();
+        }
+
+        public function delete($voertuigId)
+        {
+            $sql ="DELETE FROM voertuiginstructeur
+                        WHERE VoertuigId = $voertuigId ";
+            // echo $sql;exit();
+            $this->db->query($sql);
+            // $this->db->bind(':id', $id, PDO::PARAM_INT);
+    
+            return $this->db->execute();
         }
     }

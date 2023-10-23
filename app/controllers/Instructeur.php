@@ -12,7 +12,7 @@ class Instructeur extends BaseController
     public function overzichtInstructeur() 
     {
         $result = $this->instructeurModel->getInstructeur();
-         var_dump($result);
+        //  var_dump($result);
 
         // var_dump($rows);
 
@@ -84,7 +84,7 @@ class Instructeur extends BaseController
 
             foreach ($result as $voertuig) {
                 $date_formatted = date_format(date_create($voertuig->Bouwjaar), 'd-m-y');
-                var_dump($voertuig);
+                // var_dump($voertuig);
                 $tableRows .= "<tr>
                 <td>$voertuig->TypeVoertuig</td>
                 <td>$voertuig->Type</td>
