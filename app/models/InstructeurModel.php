@@ -52,6 +52,7 @@ class instructeurModel
                       ,Achternaam
                       ,DatumInDienst
                       ,Aantalsterren
+                      ,status
                 FROM  instructeur
                 WHERE id = $id";
 
@@ -88,6 +89,24 @@ class instructeurModel
         // echo $sql;exit();
         $this->db->query($sql);
         // $this->db->bind(':id', $id, PDO::PARAM_INT);
+
+        return $this->db->execute();
+    }
+
+    public function present($instructeurId) {
+        $sql ="UPDATE `instructeur` SET
+			`Status`= 0 WHERE InstructeurId = $instructeurId'";
+
+        $this->db->query($sql);
+
+        return $this->db->execute();
+    }
+
+    public function absent($instructeurId) {
+        $sql ="UPDATE `instructeur` SET
+			`Status`= 1 WHERE InstructeurId = $instructeurId'";
+
+        $this->db->query($sql);
 
         return $this->db->execute();
     }

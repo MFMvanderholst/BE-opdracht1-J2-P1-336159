@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `instructeur` (
   `Mobiel` varchar(12) DEFAULT NULL,
   `DatumInDienst` date DEFAULT NULL,
   `AantalSterren` varchar(5) DEFAULT NULL,
+  `Status` int,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -48,12 +49,12 @@ CREATE TABLE IF NOT EXISTS `instructeur` (
 -- Gegevens worden geëxporteerd voor tabel `instructeur`
 --
 
-INSERT INTO `instructeur` (`id`, `Voornaam`, `Tussenvoegsel`, `Achternaam`, `Mobiel`, `DatumInDienst`, `AantalSterren`) VALUES
-(1, 'Li', '  ', 'Zhan', '06-28493827', '2015-04-17', '***'),
-(2, 'Leroy', ' ', 'Boerhaven', '06-39398734', '2018-06-25', '*'),
-(3, 'Yoeri', ' Van ', 'Veen', '06-24383291', '2010-05-12', '***'),
-(4, 'Bert', ' Van ', 'Sali', '06-48293823', '2023-01-10', '****'),
-(5, 'Mohammed', ' EL ', 'Yassidi', '06-34291234', '2010-06-14', '*****');
+INSERT INTO `instructeur` (`id`, `Voornaam`, `Tussenvoegsel`, `Achternaam`, `Mobiel`, `DatumInDienst`, `AantalSterren`, `Status`) VALUES
+(1, 'Li', '  ', 'Zhan', '06-28493827', '2015-04-17', '***', 0),
+(2, 'Leroy', ' ', 'Boerhaven', '06-39398734', '2018-06-25', '*', 0),
+(3, 'Yoeri', ' Van ', 'Veen', '06-24383291', '2010-05-12', '***', 0),
+(4, 'Bert', ' Van ', 'Sali', '06-48293823', '2023-01-10', '****', 0),
+(5, 'Mohammed', ' EL ', 'Yassidi', '06-34291234', '2010-06-14', '*****', 0);
 
 -- --------------------------------------------------------
 

@@ -21,6 +21,7 @@
             <th>Datum_in_Dienst</th>
             <th>Aantal_sterren</th>
             <th>Voertuigen</th>
+            <th>Ziekte/Verlof</th>
         </thead>
         <tbody>
         

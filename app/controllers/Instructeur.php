@@ -10,50 +10,55 @@ class Instructeur extends BaseController
     }
 
     public function overzichtInstructeur() 
-    {
-        $result = $this->instructeurModel->getInstructeur();
-        //  var_dump($result);
+{
+    $result = $this->instructeurModel->getInstructeur();
+    var_dump($instructeur);
 
-        // var_dump($rows);
+    $rows = "";
+    foreach ($result as $instructeur) {
+        $date = date_create($instructeur->DatumInDienst);
+        $formatted_date = date_format($date, 'd/m/Y');
 
-        $rows = "";
-        foreach ($result as $instructeur) {
-            $date = date_create($instructeur->DatumInDienst);
-            $formatted_date = date_format($date, 'd/m/Y');
+        $rows .= "<tr>
+                    <td>$instructeur->Voornaam</td>
+                    <td>$instructeur->Tussenvoegsel</td>
+                    <td>$instructeur->Achternaam</td>
+                    <td>$instructeur->Mobiel</td>
+                    <td>$formatted_date</td>
+                    <td>$instructeur->AantalSterren</td>
+                    <td>
+                        <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$instructeur->id'><img src='" . URLROOT . "img/autoicon.png'></a>
+                    </td>
+                    <td>";
 
-            $rows .= "<tr>
-                        <td>$instructeur->Voornaam</td>
-                        <td>$instructeur->Tussenvoegsel</td>
-                        <td>$instructeur->Achternaam</td>
-                        <td>$instructeur->Mobiel</td>
-                        <td>$formatted_date</td>
-                        <td>$instructeur->AantalSterren</td>
-                        <td>
-                            <a href='" . URLROOT . "/instructeur/overzichtvoertuigen/$instructeur->id'><img src='" . URLROOT . "img/autoicon.png'></a>
-                        </td>
-                      </tr>";                    
+        if ($instructeur->status == 1) {
+            $rows .= "<form method='post' action='" . URLROOT . "/instructeur/present/$instructeur->id'>
+                        <button class='absent' name=''><img src='" . URLROOT . "img/plaster.png'></button>
+                    </form>";
+        } else {
+            $rows .= "<form method='post' action='" . URLROOT . "/instructeur/absent/$instructeur->id'>
+                        <button class='active' name=''><img src='" . URLROOT . "img/thumbsup.png'></button>
+                    </form>";
         }
 
-        $resultCount = $this->instructeurModel->countInstructeur();
-
-        $count = "";
-        foreach ($resultCount as $instructeur) {
-            $count .= "$instructeur";
-        }
-        // var_dump($count);
-        
-
-        $data = [
-            'title' => 'Instructeur in dienst',
-            'rows' => $rows,
-            'count' => $count
-        ];
-
-        // var_dump($rows);
-        // var_dump($instructeur->id);
-
-        $this->view('instructeur/overzichtinstructeur', $data);
+        $rows .= "</td></tr>";
     }
+
+    $resultCount = $this->instructeurModel->countInstructeur();
+
+    $count = "";
+    foreach ($resultCount as $instructeur) {
+        $count .= "$instructeur";
+    }
+
+    $data = [
+        'title' => 'Instructeur in dienst',
+        'rows' => $rows,
+        'count' => $count
+    ];
+
+    $this->view('instructeur/overzichtinstructeur', $data);
+}
 
     public function overzichtVoertuigen($id)
     {
@@ -94,6 +99,17 @@ class Instructeur extends BaseController
                 <td>$voertuig->Rijbewijscategorie</td>
                 <td><a href='". URLROOT . "/instructeur/wijzigenovervoertuigen/'><img src='" . URLROOT . "img/wijzigenicon.png'></a></td>
                 <td><a href='". URLROOT . "/instructeur/delete/" . $voertuig->id . "/" . $id . "'><img src='" . URLROOT . "img/delete.png'></a></td>
+                <td>
+                            ";
+            if ($instructeurInfo->status == 1)  {
+                $tableRows .= "<button class='absent'><img src='" . URLROOT . "img/plaster.png'></button>";
+            } else {
+                $tableRows .= "<button class='active'><img src='" . URLROOT . "img/thumbsup.png'></button>";
+            }
+                            
+                            
+            $tableRows .=      "
+                        </td>
                 </tr>";
             }
         }

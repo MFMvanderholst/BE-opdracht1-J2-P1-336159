@@ -17,3 +17,11 @@ img {
 a {
     width: 4em;
 }
+
+.active {
+    background-color: green;
+}
+
+.absent {
+    background-color: red;
+}

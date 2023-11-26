@@ -27,6 +27,7 @@
             <th>Rijbewijscategorie</th>
             <th>Wijzigen</th>
             <th>Verwijder</th>
+            <th>Toegewezen</th>
         </thead>
         <tbody>
         
