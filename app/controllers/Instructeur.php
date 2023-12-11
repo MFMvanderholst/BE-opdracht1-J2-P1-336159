@@ -19,6 +19,7 @@ class Instructeur extends BaseController
     foreach ($result as $instructeur) {
         $date = date_create($instructeur->DatumInDienst);
         $formatted_date = date_format($date, 'd/m/Y');
+        $naam = $instructeur->Voornaam . " " . $instructeur->Tussenvoegsel . " " . $instructeur->Achternaam;
 
         $rows .= "<tr>
                     <td>$instructeur->Voornaam</td>
@@ -43,7 +44,14 @@ class Instructeur extends BaseController
         }
 
         $rows .= "</td>
-            <td><a href='". URLROOT . "/instructeur/deleteInstructeur/" . $instructeur->id . "/" . "'><img src='" . URLROOT . "/img/delete.png'></a></td></tr>";
+                    <td>"; 
+        if ($instructeur->Status == 1) {
+            echo $naam . " " . "kan niet definitief worden verwijderd, verander eerst de status ziekte/verlof";
+            header('Refresh:2.5; url=http://www.php-mvc-periode1.com/instructeur/overzichtInstructeur/');
+        } else {
+            $rows .= "<a href='". URLROOT . "/instructeur/deleteInstructeur/" . $instructeur->id . "/" . "'><img src='" . URLROOT . "/img/delete.png'></a></td></tr>";
+        }
+
     }
 
     $resultCount = $this->instructeurModel->countInstructeur();
@@ -104,9 +112,9 @@ class Instructeur extends BaseController
                 <td>
                             ";
             if ($instructeurInfo->status == 1)  {
-                $tableRows .= "<button class='absent'><img src='" . URLROOT . "/img/plaster.png'></button>";
+                $tableRows .= "<button class='absent'><img src='" . URLROOT . "/img/cross.png'></button>";
             } else {
-                $tableRows .= "<button class='active'><img src='" . URLROOT . "/img/thumbsup.png'></button>";
+                $tableRows .= "<button class='active'><img src='" . URLROOT . "/img/checkmark.png'></button>";
             }
                             
                             
