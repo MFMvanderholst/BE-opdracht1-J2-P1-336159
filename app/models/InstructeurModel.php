@@ -93,18 +93,44 @@ class instructeurModel
         return $this->db->execute();
     }
 
-    public function present($instructeurId) {
-        $sql ="UPDATE `instructeur` SET
-			`Status`= 0 WHERE InstructeurId = $instructeurId'";
+    public function deleteInstructeurVehicles($instructeurId)
+    {
+        $sql ="DELETE FROM voertuiginstructeur
+                    WHERE InstructeurId = $instructeurId ";
+        
+        // echo $sql;exit();
+        $this->db->query($sql);
+        // $this->db->bind(':id', $id, PDO::PARAM_INT);
+
+        return $this->db->execute();
+    }
+
+    public function deleteInstructeur($id)
+    {
+        $sql ="DELETE FROM instructeur
+                    WHERE id = $id ";
+        
+        // echo $sql;exit();
+        $this->db->query($sql);
+        // $this->db->bind(':id', $id, PDO::PARAM_INT);
+
+        return $this->db->execute();
+    }
+
+    public function present($id) {
+        $sql ="UPDATE instructeur 
+            SET `Status` = 0 
+            WHERE id = $id";
 
         $this->db->query($sql);
 
         return $this->db->execute();
     }
 
-    public function absent($instructeurId) {
-        $sql ="UPDATE `instructeur` SET
-			`Status`= 1 WHERE InstructeurId = $instructeurId'";
+    public function absent($id) {
+        $sql ="UPDATE instructeur 
+            SET `Status` = 1 
+            WHERE id = $id";
 
         $this->db->query($sql);
 

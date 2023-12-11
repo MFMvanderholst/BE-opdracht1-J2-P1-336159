@@ -22,6 +22,7 @@
             <th>Aantal_sterren</th>
             <th>Voertuigen</th>
             <th>Ziekte/Verlof</th>
+            <th>Verwijderen</th>
         </thead>
         <tbody>
         
